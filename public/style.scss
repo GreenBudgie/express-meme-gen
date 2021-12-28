@@ -1,0 +1,28 @@
+$meme-text-stroke-width: 2px;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+#meme-container {
+	width: 100%;
+	text-align: center;
+}
+
+#meme-image {
+	display: block;
+	margin: auto;
+	width: 640px;
+	height: 640px;
+	border: 4px solid black;
+}
+
+#meme-text {
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	font-size: 64px;
+	transform: translateY(-100%);
+	color: white;
+	-webkit-text-stroke: $meme-text-stroke-width black;
+}
