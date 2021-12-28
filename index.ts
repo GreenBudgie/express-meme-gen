@@ -30,10 +30,27 @@ function randomWord(): string {
 }
 
 app.get("/", (req, res) => {
-	res.render("index", {
-		memeText: randomWord()
+
+	const yandexSearchURL: string = `https://yandex.ru/images/search?text=${randomWord()}`;
+
+	https.get(yandexSearchURL, (incoming: IncomingMessage) => {
+		let body: string = "";
+		incoming.on("data", (data) => {
+			body += data;
+		});
+		incoming.on("end", () => {
+			const $ = cheerio.load(body);
+			const imageurl = "https:" + $(".serp-item__thumb").attr("src");
+			res.render("index", {
+				memeImage: imageurl,
+				memeText: randomWord()
+			});
+		});
 	});
+
+	
 });
+
 
 /* const url: string = "https://yandex.ru/images/search?text=cat";
 
