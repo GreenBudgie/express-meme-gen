@@ -6,6 +6,7 @@ import sassMiddleware from "node-sass-middleware";
 import fs from "fs";
 
 const app = express();
+
 app.set("view engine", "ejs");
 app.use(sassMiddleware({
     src: "./public",
@@ -16,7 +17,6 @@ app.use(express.static("public"));
 app.listen(3000);
 
 const wordList = getWordList();
-console.log(wordList);
 
 function getWordList(): string[] {
 	const data = fs.readFileSync("./words.txt");
@@ -30,9 +30,8 @@ function randomWord(): string {
 }
 
 app.get("/", (req, res) => {
-
+	
 	const yandexSearchURL: string = `https://yandex.ru/images/search?text=${randomWord()}`;
-
 	https.get(yandexSearchURL, (incoming: IncomingMessage) => {
 		let body: string = "";
 		incoming.on("data", (data) => {
@@ -50,18 +49,3 @@ app.get("/", (req, res) => {
 
 	
 });
-
-
-/* const url: string = "https://yandex.ru/images/search?text=cat";
-
-https.get(url, (incoming: IncomingMessage) => {
-	let body: string = "";
-	incoming.on("data", (data) => {
-		body += data;
-	});
-	incoming.on("end", () => {
-		const $ = cheerio.load(body);
-		const imageurl = "https:" + $(".serp-item__thumb").attr("src");
-		console.log(imageurl);
-	});
-}); */
