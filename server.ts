@@ -30,16 +30,17 @@ function randomWord(): string {
 }
 
 app.get("/", (req, res) => {
-	
-	const yandexSearchURL: string = `https://yandex.ru/images/search?text=${randomWord()}`;
-	https.get(yandexSearchURL, (incoming: IncomingMessage) => {
+
+	const bingSearchURL: string = `https://www.bing.com/images/search?q=${randomWord()}`;
+	https.get(bingSearchURL, (incoming: IncomingMessage) => {
 		let body: string = "";
 		incoming.on("data", (data) => {
 			body += data;
 		});
 		incoming.on("end", () => {
 			const $ = cheerio.load(body);
-			const imageurl = "https:" + $(".serp-item__thumb").attr("src");
+			const imageurl = $(".mimg").attr("src");
+			console.log(imageurl);
 			res.render("index", {
 				memeImage: imageurl,
 				memeText: randomWord()
