@@ -11,7 +11,7 @@ app.set("view engine", "ejs");
 app.use(sassMiddleware({
     src: "./public",
     dest: "./public",
-    debug: true
+    debug: true,
 }));
 app.use(express.static("public"));
 app.listen(3000);
