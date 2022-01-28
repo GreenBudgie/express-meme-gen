@@ -40,7 +40,6 @@ app.get("/", (req, res) => {
 		incoming.on("end", () => {
 			const $ = cheerio.load(body);
 			const imageurl = $(".mimg").attr("src");
-			console.log(imageurl);
 			res.render("index", {
 				memeImage: imageurl,
 				memeText: randomWord()
