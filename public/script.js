@@ -10,6 +10,8 @@ function resizeElements(windowSize) {
     memeImage.style.height = `${imageSize}px`;
     memeText.style.fontSize = `${fontSize}px`;
 }
+document.querySelector("#generate-meme").addEventListener("click", (event) => {
+});
 // window.addEventListener("resize", () => {
 // 	const minSize = Math.min(window.innerWidth, window.innerHeight);
 // 	resizeElements(minSize);

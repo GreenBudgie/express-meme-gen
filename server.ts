@@ -29,8 +29,7 @@ function randomWord(): string {
 	return wordList[Math.floor(Math.random() * wordList.length)].toUpperCase();
 }
 
-app.get("/", (req, res) => {
-
+app.get("/api/randomImage", (req, res) => {
 	const bingSearchURL: string = `https://www.bing.com/images/search?q=${randomWord()}`;
 	https.get(bingSearchURL, (incoming: IncomingMessage) => {
 		let body: string = "";
@@ -40,13 +39,15 @@ app.get("/", (req, res) => {
 		incoming.on("end", () => {
 			const $ = cheerio.load(body);
 			const imageurl = $(".mimg").attr("src");
-			console.log(imageurl);
-			res.render("index", {
-				memeImage: imageurl,
-				memeText: randomWord()
-			});
+			res.send(imageurl);
 		});
 	});
+});
 
-	
+app.get("/api/randomWord", (req, res) => {
+	res.send(randomWord());
+});
+
+app.get("/", (req, res) => {
+	res.render("index");
 });

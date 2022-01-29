@@ -9,8 +9,11 @@
 </head>
 <body>
 	<div id="wrapper">
-		<img id="meme-image" src="<%= memeImage %> " alt="Meme">
-		<div id="meme-text"><%= memeText %> </div>
+		<div id="meme-wrapper">
+			<div class="no-meme">Нажми на кнопку, чтобы придумать мем</div>
+			<img class="meme-image hidden" src="" alt="Meme">
+			<div class="meme-text hidden"></div>
+		</div>
 		<button id="generate-meme">ПРИДУМАТЬ МЕМ</button>
 	</div>
 	<script src="script.js"></script>

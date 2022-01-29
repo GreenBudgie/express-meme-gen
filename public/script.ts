@@ -13,6 +13,10 @@ function resizeElements(windowSize: number) {
 	memeText.style.fontSize = `${fontSize}px`;
 }
 
+(document.querySelector("#generate-meme") as HTMLElement).addEventListener("click", (event: MouseEvent) => {
+	
+})
+
 // window.addEventListener("resize", () => {
 // 	const minSize = Math.min(window.innerWidth, window.innerHeight);
 // 	resizeElements(minSize);
