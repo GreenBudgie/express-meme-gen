@@ -10,10 +10,10 @@ function resizeElements(windowSize: number) {
 
 	memeImage.style.width = `${imageSize}px`;
 	memeImage.style.height = `${imageSize}px`;
-	memeText.style.fontSize = `${fontSize}px`
+	memeText.style.fontSize = `${fontSize}px`;
 }
 
-window.addEventListener("resize", () => {
-	const minSize = Math.min(window.innerWidth, window.innerHeight);
-	resizeElements(minSize);
-});
+// window.addEventListener("resize", () => {
+// 	const minSize = Math.min(window.innerWidth, window.innerHeight);
+// 	resizeElements(minSize);
+// });

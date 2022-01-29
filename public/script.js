@@ -10,8 +10,8 @@ function resizeElements(windowSize) {
     memeImage.style.height = `${imageSize}px`;
     memeText.style.fontSize = `${fontSize}px`;
 }
-window.addEventListener("resize", () => {
-    const minSize = Math.min(window.innerWidth, window.innerHeight);
-    resizeElements(minSize);
-});
+// window.addEventListener("resize", () => {
+// 	const minSize = Math.min(window.innerWidth, window.innerHeight);
+// 	resizeElements(minSize);
+// });
 //# sourceMappingURL=script.js.map
