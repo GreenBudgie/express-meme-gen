@@ -29,7 +29,7 @@ function randomWord(): string {
 	return wordList[Math.floor(Math.random() * wordList.length)].toUpperCase();
 }
 
-app.get("/api/randomImage", (req, res) => {
+app.get("/api/randomImageURL", (req, res) => {
 	const bingSearchURL: string = `https://www.bing.com/images/search?q=${randomWord()}`;
 	https.get(bingSearchURL, (incoming: IncomingMessage) => {
 		let body: string = "";
