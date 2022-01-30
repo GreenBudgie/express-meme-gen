@@ -1,17 +1,46 @@
 "use strict";
-const memeImage = document.querySelector("#meme-image");
-const memeText = document.querySelector("#meme-text");
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+const noMemeElement = document.getElementById("no-meme");
+const memeImageElement = document.getElementById("meme-image");
+const memeTextElement = document.getElementById("meme-text");
 function resizeElements(windowSize) {
     const fontSizeToImageRatio = 10;
     const imageMinSize = 250;
     const imageSize = Math.max(imageMinSize, windowSize);
     const fontSize = Math.max(imageMinSize / fontSizeToImageRatio, windowSize / fontSizeToImageRatio);
-    memeImage.style.width = `${imageSize}px`;
-    memeImage.style.height = `${imageSize}px`;
-    memeText.style.fontSize = `${fontSize}px`;
+    memeImageElement.style.width = `${imageSize}px`;
+    memeImageElement.style.height = `${imageSize}px`;
+    memeTextElement.style.fontSize = `${fontSize}px`;
 }
-document.querySelector("#generate-meme").addEventListener("click", (event) => {
-});
+function showMeme(imageURL, text) {
+    memeImageElement.setAttribute("src", imageURL);
+    memeTextElement.textContent = text;
+    noMemeElement.classList.add("hidden");
+    memeImageElement.classList.remove("hidden");
+    memeTextElement.classList.remove("hidden");
+}
+function hideMemeAndReset() {
+    memeImageElement.removeAttribute("src");
+    memeTextElement.textContent = "";
+    memeImageElement.classList.add("hidden");
+    memeTextElement.classList.add("hidden");
+    noMemeElement.classList.remove("hidden");
+}
+document.getElementById("generate-meme").addEventListener("click", (event) => __awaiter(void 0, void 0, void 0, function* () {
+    event.target.setAttribute("disabled", "");
+    const imageURL = yield (yield fetch("/api/randomImageURL")).text();
+    const word = yield (yield fetch("/api/randomWord")).text();
+    event.target.removeAttribute("disabled");
+    showMeme(imageURL, word);
+}));
 // window.addEventListener("resize", () => {
 // 	const minSize = Math.min(window.innerWidth, window.innerHeight);
 // 	resizeElements(minSize);

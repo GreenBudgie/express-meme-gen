@@ -17,25 +17,26 @@ $meme-text-stroke-width: 2px;
 	width: 640px;
 	height: 640px;
 	background-color: gray;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	position: relative;
 }
 
-.no-meme {
+#no-meme {
 	color: white;
 	font-size: 64px;
-	margin: 1em;
+	margin: 0 1em; 
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
-.meme-image {
+#meme-image {
 	display: block;
 	margin: auto;
 	width: 640px;
 	height: 640px;
 }
 
-.meme-text {
+#meme-text {
 	font-size: 64px;
 	margin-top: -1.2em;
 	color: white;
@@ -60,7 +61,11 @@ $meme-text-stroke-width: 2px;
 
 	transition: background-color linear 0.15s;
 
-	&:hover {
+	&:hover:enabled {
 		background-color: #808080;
+	}
+
+	&:disabled {
+		background-color: #3f3f3f;
 	}
 }

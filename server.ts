@@ -30,18 +30,28 @@ function randomWord(): string {
 }
 
 app.get("/api/randomImageURL", (req, res) => {
-	const bingSearchURL: string = `https://www.bing.com/images/search?q=${randomWord()}`;
-	https.get(bingSearchURL, (incoming: IncomingMessage) => {
-		let body: string = "";
-		incoming.on("data", (data) => {
-			body += data;
+	const bingSearchURLPattern = "https://www.bing.com/images/search?q=";
+	searchUntilSuccess();
+
+	function searchUntilSuccess() {
+		https.get(bingSearchURLPattern + randomWord(), (incoming: IncomingMessage) => {
+			let body: string = "";
+			incoming.on("data", (data) => {
+				body += data;
+			});
+			incoming.on("end", () => {
+				const $ = cheerio.load(body);
+				const rawImageURL = $(".mimg").attr("src");
+				if(rawImageURL != undefined && rawImageURL != null && rawImageURL.trim().length > 1) {
+					res.send(rawImageURL);
+				} else {
+					console.log("INVALID URL")
+					searchUntilSuccess();
+				}
+			});
 		});
-		incoming.on("end", () => {
-			const $ = cheerio.load(body);
-			const imageurl = $(".mimg").attr("src");
-			res.send(imageurl);
-		});
-	});
+	}
+	
 });
 
 app.get("/api/randomWord", (req, res) => {
