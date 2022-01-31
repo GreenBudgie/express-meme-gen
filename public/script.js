@@ -11,15 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const noMemeElement = document.getElementById("no-meme");
 const memeImageElement = document.getElementById("meme-image");
 const memeTextElement = document.getElementById("meme-text");
-function resizeElements(windowSize) {
-    const fontSizeToImageRatio = 10;
-    const imageMinSize = 250;
-    const imageSize = Math.max(imageMinSize, windowSize);
-    const fontSize = Math.max(imageMinSize / fontSizeToImageRatio, windowSize / fontSizeToImageRatio);
-    memeImageElement.style.width = `${imageSize}px`;
-    memeImageElement.style.height = `${imageSize}px`;
-    memeTextElement.style.fontSize = `${fontSize}px`;
-}
+const memeWrapperElement = document.getElementById("meme-wrapper");
+new ResizeObserver(() => {
+    memeWrapperElement.style.height = getComputedStyle(memeWrapperElement).width;
+}).observe(memeWrapperElement);
 function showMeme(imageURL, text) {
     memeImageElement.setAttribute("src", imageURL);
     memeTextElement.textContent = text;
@@ -41,8 +36,4 @@ document.getElementById("generate-meme").addEventListener("click", (event) => __
     event.target.removeAttribute("disabled");
     showMeme(imageURL, word);
 }));
-// window.addEventListener("resize", () => {
-// 	const minSize = Math.min(window.innerWidth, window.innerHeight);
-// 	resizeElements(minSize);
-// });
 //# sourceMappingURL=script.js.map

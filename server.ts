@@ -45,7 +45,6 @@ app.get("/api/randomImageURL", (req, res) => {
 				if(rawImageURL != undefined && rawImageURL != null && rawImageURL.trim().length > 1) {
 					res.send(rawImageURL);
 				} else {
-					console.log("INVALID URL")
 					searchUntilSuccess();
 				}
 			});

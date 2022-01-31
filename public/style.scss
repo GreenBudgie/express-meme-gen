@@ -1,28 +1,31 @@
-$meme-text-stroke-width: 2px;
-
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
+body {
+	background-color: #f7f7f7;
+}
+
 #wrapper {
-	width: fit-content;
-	margin: 20px auto;
+	width: 80vmin;
+	margin: 2vmin auto;
 	text-align: center;
+	font-weight: bold;
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 #meme-wrapper {
-	width: 640px;
-	height: 640px;
+	width: 100%;
+	height: 520px;
 	background-color: gray;
 	position: relative;
 }
 
 #no-meme {
 	color: white;
-	font-size: 64px;
+	font-size: 8vmin;
 	margin: 0 1em; 
 	position: absolute;
 	top: 50%;
@@ -32,15 +35,15 @@ $meme-text-stroke-width: 2px;
 #meme-image {
 	display: block;
 	margin: auto;
-	width: 640px;
-	height: 640px;
+	width: 100%;
+	height: 100%;
 }
 
 #meme-text {
-	font-size: 64px;
+	font-size: 8vmin;
 	margin-top: -1.2em;
 	color: white;
-	-webkit-text-stroke: $meme-text-stroke-width black;
+	-webkit-text-stroke: 0.3vmin black;
 }
 
 .hidden {
@@ -48,24 +51,29 @@ $meme-text-stroke-width: 2px;
 }
 
 #generate-meme {
-	font-size: 32px;
+	font-size: 4vmin;
 	color: white;
 	background-color: #696969;
 	width: fit-content;
 	height: fit-content;
 	padding: 0.3em 0.8em;
-	margin-top: 20px;
+	margin-top: 2vmin;
 	outline: none;
 	border: none;
+	opacity: 1;
 	cursor: pointer;
 
-	transition: background-color linear 0.15s;
+	transition: background-color linear 0.15s, opacity linear 0.2s;
 
 	&:hover:enabled {
 		background-color: #808080;
 	}
 
 	&:disabled {
-		background-color: #3f3f3f;
+		opacity: 0.5;
+	}
+
+	@media (max-width: 400px), (max-height: 400px) {
+		width: 100%;
 	}
 }
