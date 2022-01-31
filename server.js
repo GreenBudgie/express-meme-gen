@@ -16,7 +16,7 @@ app.use((0, node_sass_middleware_1.default)({
     debug: true,
 }));
 app.use(express_1.default.static("public"));
-const port = 3000;
+const port = 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
 const wordList = getWordList();
 function getWordList() {
