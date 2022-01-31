@@ -12,28 +12,33 @@ const noMemeElement = document.getElementById("no-meme");
 const memeImageElement = document.getElementById("meme-image");
 const memeTextElement = document.getElementById("meme-text");
 const memeWrapperElement = document.getElementById("meme-wrapper");
+const generateMemeElement = document.getElementById("generate-meme");
+const loadingElement = document.getElementById("loading");
 new ResizeObserver(() => {
     memeWrapperElement.style.height = getComputedStyle(memeWrapperElement).width;
 }).observe(memeWrapperElement);
 function showMeme(imageURL, text) {
     memeImageElement.setAttribute("src", imageURL);
-    memeTextElement.textContent = text;
-    noMemeElement.classList.add("hidden");
-    memeImageElement.classList.remove("hidden");
-    memeTextElement.classList.remove("hidden");
+    memeImageElement.onload = () => {
+        memeTextElement.textContent = text;
+        noMemeElement.classList.add("hidden");
+        loadingElement.classList.add("hidden");
+        memeImageElement.classList.remove("hidden");
+        memeTextElement.classList.remove("hidden");
+        generateMemeElement.removeAttribute("disabled");
+    };
 }
-function hideMemeAndReset() {
-    memeImageElement.removeAttribute("src");
-    memeTextElement.textContent = "";
+function loadMemeEffect() {
+    generateMemeElement.setAttribute("disabled", "");
+    noMemeElement.classList.add("hidden");
     memeImageElement.classList.add("hidden");
     memeTextElement.classList.add("hidden");
-    noMemeElement.classList.remove("hidden");
+    loadingElement.classList.remove("hidden");
 }
-document.getElementById("generate-meme").addEventListener("click", (event) => __awaiter(void 0, void 0, void 0, function* () {
-    event.target.setAttribute("disabled", "");
+generateMemeElement.addEventListener("click", (event) => __awaiter(void 0, void 0, void 0, function* () {
+    loadMemeEffect();
     const imageURL = yield (yield fetch("/api/randomImageURL")).text();
     const word = yield (yield fetch("/api/randomWord")).text();
-    event.target.removeAttribute("disabled");
     showMeme(imageURL, word);
 }));
 //# sourceMappingURL=script.js.map

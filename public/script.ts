@@ -1,7 +1,9 @@
 const noMemeElement = document.getElementById("no-meme")!;
-const memeImageElement = document.getElementById("meme-image")!;
+const memeImageElement: HTMLImageElement = document.getElementById("meme-image") as HTMLImageElement;
 const memeTextElement = document.getElementById("meme-text")!;
 const memeWrapperElement = document.getElementById("meme-wrapper")!;
+const generateMemeElement = document.getElementById("generate-meme")!;
+const loadingElement = document.getElementById("loading") as HTMLImageElement;
 
 new ResizeObserver(() => {
 	memeWrapperElement.style.height = getComputedStyle(memeWrapperElement).width;
@@ -9,24 +11,27 @@ new ResizeObserver(() => {
 
 function showMeme(imageURL: string, text: string) {
 	memeImageElement.setAttribute("src", imageURL);
-	memeTextElement.textContent = text;
-	noMemeElement.classList.add("hidden");
-	memeImageElement.classList.remove("hidden");
-	memeTextElement.classList.remove("hidden");
+	memeImageElement.onload = () => {
+		memeTextElement.textContent = text;
+		noMemeElement.classList.add("hidden");
+		loadingElement.classList.add("hidden");
+		memeImageElement.classList.remove("hidden");
+		memeTextElement.classList.remove("hidden");
+		generateMemeElement.removeAttribute("disabled");
+	};
 }
 
-function hideMemeAndReset() {
-	memeImageElement.removeAttribute("src");
-	memeTextElement.textContent = "";
+function loadMemeEffect() {
+	generateMemeElement.setAttribute("disabled", "");
+	noMemeElement.classList.add("hidden");
 	memeImageElement.classList.add("hidden");
 	memeTextElement.classList.add("hidden");
-	noMemeElement.classList.remove("hidden");
+	loadingElement.classList.remove("hidden");
 }
 
-document.getElementById("generate-meme")!.addEventListener("click", async (event: MouseEvent) => {
-	(event.target as HTMLElement).setAttribute("disabled", "");
+generateMemeElement.addEventListener("click", async (event: MouseEvent) => {
+	loadMemeEffect();
 	const imageURL = await (await fetch("/api/randomImageURL")).text();
 	const word = await (await fetch("/api/randomWord")).text();
-	(event.target as HTMLElement).removeAttribute("disabled");
 	showMeme(imageURL, word);
-})
+});
