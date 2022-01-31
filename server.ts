@@ -1,4 +1,3 @@
-import {IncomingMessage} from "http";
 import https from "https";
 import cheerio from "cheerio";
 import express from "express";
@@ -14,7 +13,10 @@ app.use(sassMiddleware({
     debug: true,
 }));
 app.use(express.static("public"));
-app.listen(5000);
+
+const port = 3000;
+
+app.listen(port, () => console.log(`Server is running on port ${port}`));
 
 const wordList = getWordList();
 
@@ -34,7 +36,7 @@ app.get("/api/randomImageURL", (req, res) => {
 	searchUntilSuccess();
 
 	function searchUntilSuccess() {
-		https.get(bingSearchURLPattern + randomWord(), (incoming: IncomingMessage) => {
+		https.get(bingSearchURLPattern + randomWord(), incoming => {
 			let body: string = "";
 			incoming.on("data", (data) => {
 				body += data;
