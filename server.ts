@@ -14,7 +14,7 @@ app.use(sassMiddleware({
     debug: true,
 }));
 app.use(express.static("public"));
-app.listen(3000);
+app.listen(5000);
 
 const wordList = getWordList();
 
