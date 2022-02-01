@@ -22,13 +22,13 @@ function showMeme(imageURL: string, text: string) {
 		
 		context.textAlign = "center";
 		context.textBaseline = "bottom";
-		context.font = "bold 64px Impact";
+		context.font = `bold ${canvasSize / 10}px Impact`;
 		context.fillStyle = "white";
 		context.strokeStyle = "black";
-		context.lineWidth = 2;
+		context.lineWidth = canvasSize / 320;
 		const textWidth = context.measureText(text).width;
 		if(textWidth > canvasSize - 10) {
-			context.font = "bold 48px Impact";
+			context.font = `bold ${canvasSize / 15}px Impact`;
 		}
 		context.fillText(text, canvasSize / 2, canvasSize);
 		context.strokeText(text, canvasSize / 2, canvasSize);
